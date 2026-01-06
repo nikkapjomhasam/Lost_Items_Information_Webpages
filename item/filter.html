@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="../css/filter.css">
+<div id="fillter-modal" class="modal">
+  <div class="modal-content">
+    <span class="closs-butoon" onclick="closeModal()">&times;</span>
+
+    <div id="selected-tags" class="tag-container">
+      </div>
+
+    <div class="fillter-section">
+      <h4>물품 보관 장소</h4>
+      <div class="fillter-options">
+        <button class="opt-btn" onclick="selectOption(this)">학술정보관</button>
+        <button class="opt-btn" onclick="selectOption(this)">본관</button>
+        <button class="opt-btn" onclick="selectOption(this)">학생회관</button>
+      </div>
+    </div>
+
+    <div class="fillter-section">
+      <h4>물품 형식</h4>
+      <div class="fillter-options">
+        <button class="opt-btn active" onclick="selectOption(this)">전체</button>
+        <button class="opt-btn" onclick="selectOption(this)">전자기기</button>
+        <button class="opt-btn" onclick="selectOption(this)">의류</button>
+        <button class="opt-btn" onclick="selectOption(this)">책/문구</button>
+        <button class="opt-btn" onclick="selectOption(this)">지갑/카드</button>
+        <button class="opt-btn" onclick="selectOption(this)">기타</button>
+      </div>
+    </div>
+
+    <div class="fillter-section">
+      <h4>물품 보관 날짜</h4>
+      <div class="date">
+        <select id="start-month"><option>11</option></select>
+        <select id="start-year"><option>2025</option></select>
+        <span>~</span>
+        <select id="end-month"><option>1</option></select>
+        <select id="end-year"><option>2026</option></select>
+      </div>
+    </div>
+
+    <button id="apply-filter" onclick="applyFilters()">적용하기</button>
+  </div>
+</div>
