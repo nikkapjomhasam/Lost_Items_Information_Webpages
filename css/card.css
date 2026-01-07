@@ -1,0 +1,33 @@
+.card{
+    width: 250px;
+    height: 320px;
+    border: 1px solid grey;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.card-image {
+    width: 230px;
+    height: 180px; 
+    padding: 10px;
+}
+
+.item-img{
+    width: 230px;
+    height: 180px;
+    object-fit: fill;
+    border-radius: 10;
+}
+
+.card-content *{
+  margin: 0;
+  margin-left: 5px;
+}
+
+.section{
+    margin-top: 15px;
+}
+
+.title{
+    margin-top: 5px;
+}

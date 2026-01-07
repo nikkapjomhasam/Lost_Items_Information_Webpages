@@ -1,16 +1,29 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const categoryBtn = document.getElementById('category');
+document.addEventListener("DOMContentLoaded", ()=> {
+    //search_wrapper 밑에 카드 생성
+    const searchWrapper = document.querySelector(".search_wrapper");
+    const itemList = document.createElement("div");
+    itemList.id = "item-list";
 
-    if (categoryBtn) {
-        // filter.js에 선언된 openModal 함수를 연결
-        categoryBtn.onclick = () => {
-            if (typeof openModal === "function") {
-                openModal();
-            } else {
-                console.error("filter.js가 로드되지 않았거나 openModal 함수가 없습니다.");
-            }
-        };
-    } else {
-        console.error("카테고리 버튼을 찾을 수 없습니다.");
-    }
-});
+    searchWrapper.after(itemList);
+
+    lostItems.forEach((item) => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        card.innerHTML = `
+            <div class="card-image">
+                <img src="${item.image}" alt="${item.title}" class="item-img">
+            </div>
+            <div class="card-content">
+                <div class="title">
+                    <h3 class="item-title">${item.title}</h3>
+                </div>
+                <div class="section">
+                    <p class="item-location"><span>장소:</span> ${item.location}</p>
+                    <p class="item-date"><span>일자:</span> ${item.date}</p>
+                </div>
+            </div>
+        `;
+        itemList.appendChild(card);
+    })
+})

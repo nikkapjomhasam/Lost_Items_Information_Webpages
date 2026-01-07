@@ -9,7 +9,7 @@
   <script src="./js/data.js"></script>
   <script src="./js/filter.js"></script>
   <script src="./js/main.js"></script>
-  <script src="./js/filter.js"></script>
+
   <div class = "head">
     <a href="index.html"><img src="./logo.jpg" class="logo"></a>
       <nav>
@@ -19,19 +19,29 @@
           <li><button class="login">로그인</button></li>
         </ul>
     </div>
+
+  <nav class="left">
+    <div class="item">
+        <button class="find_btn">
+          <img src="./find.png" class="find_img">
+          <span>분실물 찾기</span>
+        </button>
+        <button class="write_btn">
+          <img src="./write.png" class="write_img">
+          <span>분실품 작성하기</span>
+        </button>
+    </div>
+  </nav>
+  
   <div class="search_wrapper">
-    <div class="mid_warrper">
+    <div class="mid_wrapper">
       <input type="text" id="search">
-      <input type="button" id="submit_button" value="검색">
-      <input type="button" id="category" value="카테고리">
+      <button class="search_btn"><img src="./search.png" class="search_img"></button>
+      <button class="category_btn"><img src="./filter.png" class="filter_img"></button>
       <hr>
     </div>
   </div>
-<main>
-        <div id="contents-container"></div>
-    </main>
-
-    <div id="fillter-modal" class="modal">
-        </div>
+      <div id="item-list"></div>
+</div>
 </body>
 </html>

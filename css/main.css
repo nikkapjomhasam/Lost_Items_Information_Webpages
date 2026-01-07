@@ -50,6 +50,8 @@
 }
 
 .search_wrapper {
+  position:absolute;
+  z-index: 5;
   display: flex;         
   justify-content: center;  
   align-items: center;      
@@ -72,8 +74,151 @@
   outline: none;
 }
 
-hr{
+.search_img{
+  width: 20px;
+  height: 20px;
+}
+.search_btn{
+  width: 30px;
+  height: 30px;
   border: none;
-  background-color: black;
+  background-color: white;
+}
+
+.search_btn:hover{
+  opacity: 0.6;
+}
+
+.filter_img{
+  width: 30px;
+  height: 30px;
+}
+
+.category_btn{
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: white;
+}
+
+.category_btn:hover{
+  opacity: 0.6;
+}
+
+.mid_wrapper{
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+hr {
+  width: 100%;
+  border: none;
   height: 1px;
+  background-color: black;
+}
+
+.left{
+  position: absolute;
+  z-index: 10;
+  display: table;
+  table-layout: fixed;
+  width: 300px;
+  height: 100vh;
+  border-right: 1px solid #ddd;
+}
+
+.item{
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10%;
+}
+
+.find_btn{
+  float: left;
+  font-size: 25px;
+  display: flex;
+  align-items: left;     
+  justify-content: left; 
+  gap: 5px;
+  border: none;
+  background: transparent;
+  font-weight: bold;
+}
+
+.find_btn:hover{
+  opacity: 0.6;
+}
+
+.find_img{
+  width: 50px;
+  height: 50px;
+}
+
+.write_btn{
+  font-size: 25px;
+  display: flex;
+  align-items: left;     
+  justify-content: left; 
+  gap: 5px;
+  border: none;
+  background: transparent;
+  font-weight: bold;
+}
+
+.write_btn:hover{
+  opacity: 0.6;
+}
+
+.write_img{
+  width: 50px;
+  height: 50px;
+}
+
+#item-list {
+    justify-content: center;  
+    align-items: center;   
+    margin-left: 320px;
+    margin-top: 100px; 
+    display: flex;      
+    flex-wrap: wrap;    
+    gap: 20px;         
+    padding: 20px;
+}
+
+/* 카드 css */
+.card{
+    width: 250px;
+    height: 320px;
+    border: 1px solid grey;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.card-image {
+    width: 230px;
+    height: 180px; 
+    padding: 10px;
+}
+
+.item-img{
+    width: 230px;
+    height: 180px;
+    object-fit: fill;
+    border-radius: 10;
+}
+
+.card-content *{
+  margin: 0;
+  margin-left: 5px;
+}
+
+.section{
+    margin-top: 15px;
+}
+
+.title{
+    margin-top: 20px;
 }

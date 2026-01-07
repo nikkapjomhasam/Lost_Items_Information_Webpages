@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>물품 등록 + 사진 미리보기(데모)</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    .app { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      width: 240px;
+      border-right: 1px solid #ddd;
+      padding: 16px;
+    }
+    .sidebar h2 { margin: 0 0 14px; font-size: 18px; }
+    .menuBtn {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      background: #fff;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 15px;
+    }
+
+    .content { flex: 1; padding: 24px; }
+    .hidden { display: none; }
+
+    .card {
+      max-width: 620px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    /* ✅ 사진 미리보기 박스 */
+    .previewBox {
+      width: 100%;
+      height: 220px;
+      border: 1px dashed #bbb;
+      border-radius: 12px;
+      background: #f6f6f6;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .previewBox img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* 사진 전체 보이게 */
+      display: none;       /* 선택 전에는 숨김 */
+      background: #fff;
+    }
+    .previewHint {
+      color: #666;
+      font-size: 14px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    label { display: block; font-weight: 700; margin: 12px 0 6px; }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    textarea { resize: vertical; }
+
+    .btnRow { display: flex; gap: 10px; margin-top: 14px; }
+    .btn {
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      background: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .req { color: #d00; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- 사이드바 -->
+    <aside class="sidebar">
+      <h2>메뉴</h2>
+      <button id="goHome" class="menuBtn" type="button">물품 찾기(홈)</button>
+      <button id="goForm" class="menuBtn" type="button">물품 등록</button>
+    </aside>
+
+    <!-- 콘텐츠 -->
+    <main class="content">
+      <!-- 홈 화면 -->
+      <section id="homeView">
+        <h1>홈(임시 화면)</h1>
+        <p>왼쪽에서 “물품 등록”을 누르면 같은 창에서 등록 폼이 열려.</p>
+        <p>※ 지금은 데모라서 새로고침하면 입력/미리보기는 날아가.</p>
+      </section>
+
+      <!-- 등록 폼 화면 -->
+      <section id="formView" class="hidden">
+        <h1>물품 등록</h1>
+
+        <div class="card">
+          <form id="regForm">
+            <!-- ✅ 사진 미리보기 -->
+            <div class="previewBox">
+              <img id="previewImg" alt="선택한 사진 미리보기" />
+              <div id="previewHint" class="previewHint">사진을 선택하면 여기에 미리보기가 뜹니다.</div>
+            </div>
+
+            <label for="photo">사진 넣기 <span class="req">*</span></label>
+            <input id="photo" name="photo" type="file" accept="image/*" />
+
+            <label for="title">분실물 제목 <span class="req">*</span></label>
+            <input id="title" name="title" type="text" placeholder="예) 에어팟, 지갑" />
+
+            <label for="place">보관 위치 <span class="req">*</span></label>
+            <input id="place" name="place" type="text" placeholder="예) 학생회관 1층 안내데스크" />
+
+            <label for="date">작성일</label>
+            <input id="date" name="date" type="date" />
+
+            <label for="desc">설명</label>
+            <textarea id="desc" name="desc" rows="3" placeholder="특징/색상/브랜드 등"></textarea>
+
+            <div class="btnRow">
+              <button class="btn" type="submit">등록(데모)</button>
+              <button class="btn" type="button" id="cancelBtn">취소</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // 화면 요소
+    const homeView = document.getElementById("homeView");
+    const formView = document.getElementById("formView");
+    const goHome = document.getElementById("goHome");
+    const goForm = document.getElementById("goForm");
+
+    const regForm = document.getElementById("regForm");
+    const cancelBtn = document.getElementById("cancelBtn");
+
+    // 사진 미리보기 요소
+    const photoInput = document.getElementById("photo");
+    const previewImg = document.getElementById("previewImg");
+    const previewHint = document.getElementById("previewHint");
+
+    // ✅ 오늘 날짜 자동 채우기(등록 화면 열 때)
+    function setTodayDate() {
+      const dateInput = document.getElementById("date");
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      dateInput.value = `${yyyy}-${mm}-${dd}`;
+    }
+
+    function showHome() {
+      formView.classList.add("hidden");
+      homeView.classList.remove("hidden");
+    }
+
+    function showForm() {
+      homeView.classList.add("hidden");
+      formView.classList.remove("hidden");
+      setTodayDate();
+    }
+
+    goHome.addEventListener("click", showHome);
+    goForm.addEventListener("click", showForm);
+
+    // ✅ 사진 선택 -> 미리보기
+    photoInput.addEventListener("change", () => {
+      const file = photoInput.files && photoInput.files[0];
+      if (!file) {
+        // 선택 취소했을 때
+        previewImg.removeAttribute("src");
+        previewImg.style.display = "none";
+        previewHint.style.display = "block";
+        return;
+      }
+
+      // 파일을 DataURL로 읽어서 img src로 넣기
+      const reader = new FileReader();
+      reader.onload = () => {
+        previewImg.src = reader.result;
+        previewImg.style.display = "block";
+        previewHint.style.display = "none";
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // 취소 버튼
+    cancelBtn.addEventListener("click", () => {
+      regForm.reset();
+
+      // 미리보기 초기화
+      previewImg.removeAttribute("src");
+      previewImg.style.display = "none";
+      previewHint.style.display = "block";
+
+      showHome();
+    });
+
+    // 등록(데모)
+    regForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const title = regForm.title.value.trim();
+      const place = regForm.place.value.trim();
+      const file = photoInput.files && photoInput.files[0];
+
+      if (!file) {
+        alert("사진 필수");
+        return;
+      }
+      if (!title) {
+        alert("분실물 제목 필수!");
+        return;
+      }
+      if (!place) {
+        alert("보관 위치 필수");
+        return;
+      }
+
+      alert("등록 완료.");
+
+      regForm.reset();
+      previewImg.removeAttribute("src");
+      previewImg.style.display = "none";
+      previewHint.style.display = "block";
+
+      showHome();
+    });
+  </script>
+</body>
+</html>
