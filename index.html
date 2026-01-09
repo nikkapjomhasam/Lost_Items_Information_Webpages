@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html lang="kr">
 <head>
+  <link rel="stylesheet" href="./css/card-modal.css">
   <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/card.css">
+  <link rel="stylesheet" href="./css/login.css"> 
   <meta charset="UTF-8">
   <title>분실물 정보 웹</title>
 </head>
 <body>
-  <script src="./js/data.js"></script>
-  <script src="./js/filter.js"></script>
-  <script src="./js/main.js"></script>
-
   <div class = "head">
     <a href="index.html"><img src="./logo.jpg" class="logo"></a>
       <nav>
         <ul class="nav-links">
-          <li><a href="#">About</a></li>
-          <li><a href="#">Services</a></li>
-          <li><button class="login">로그인</button></li>
+          <li><button class="login" id="openLoginBtn">로그인</button></li>
         </ul>
     </div>
 
@@ -26,22 +23,109 @@
           <img src="./find.png" class="find_img">
           <span>분실물 찾기</span>
         </button>
+
         <button class="write_btn">
           <img src="./write.png" class="write_img">
           <span>분실품 작성하기</span>
         </button>
     </div>
   </nav>
-  
-  <div class="search_wrapper">
-    <div class="mid_wrapper">
-      <input type="text" id="search">
-      <button class="search_btn"><img src="./search.png" class="search_img"></button>
-      <button class="category_btn"><img src="./filter.png" class="filter_img"></button>
-      <hr>
+
+
+<div class="main">
+    <div class="search_wrapper">
+      <div class="mid_wrapper">
+        <input type="text" id="search">
+        <button class="search_btn"><img src="./search.png" class="search_img"></button>
+        <button class="category_btn"><img src="./filter.png" class="filter_img"></button>
+        <hr>
+      </div>
+    </div>
+    <div id="item-list"></div>
+  </div> 
+    <!-- 홍준기 분실물 등록 폼 -->
+    <div class="upload hidden">
+  <div class="form-container">
+    <h1 class="form-title">물품 등록</h1>
+    <form class="reg-form">
+      <div class="preview-box">
+        <img class="preview-img" src="" alt="미리보기" style="display: none;">
+        <div class="preview-hint">사진을 선택하면 여기에 미리보기가 뜹니다.</div>
+      </div>
+
+      <label>사진 넣기 <span class="req">*</span></label>
+      <input type="file" class="input-photo" accept="image/*">
+
+      <label>분실물 제목 <span class="req">*</span></label>
+      <input type="text" class="input-title" placeholder="예) 에어팟, 검은색 지갑">
+
+      <label>보관 위치 <span class="req">*</span></label>
+      <input type="text" class="input-place" placeholder="예) 학생회관 1층 안내데스크">
+
+      <label>작성일</label>
+      <input type="date" class="input-date">
+
+      <label>설명</label>
+      <input class="input-desc" rows="3" placeholder="특징/색상 등 상세 정보를 입력하세요."></input>
+
+      <div class="btn-row">
+        <button type="submit" class="submit-btn">등록하기</button>
+        <button type="button" class="cancel-btn">취소</button>
+      </div>
+    </form>
+  </div>
+</div>
+    
+    <div id="modal-container">
+    <div id="overlay"> 
+      <div id="modal">
+        <button id="close" type="button">×</button>
+        <div id="imgBox">
+          <img id="bigImg" src="" alt="이미지">
+        </div>
+        <div id="info">
+          <h3 id="titleText"></h3>
+          <p id="placeText"></p>
+          <p id="dateText"></p>
+          <p id="descText"></p>
+        </div>
+      </div>
     </div>
   </div>
-      <div id="item-list"></div>
+
+<!-- 정은혜 로그인 모달 -->
+<div class="overlay" id="loginOverlay">
+  <div class="modal">
+    <button class="xBtn" id="closeLoginX">×</button>
+    <div class="modalTop">
+      <div class="seal">HY</div>
+      <div>
+        <div class="modalTitle">한양대학교 분실물센터 | 로그인</div>
+        <div class="modalDesc">분실물 센터에 접근하기 위해 인증이 필요합니다.</div>
+      </div>
+    </div>
+    <div class="login-card"> <div class="cardHeader">Lost & Found Login</div>
+      <div class="divider"></div>
+      <form id="loginForm" class="formGrid">
+        <div class="labels">
+          <div class="lbl">ID</div>
+          <div class="lbl">Password</div>
+        </div>
+        <div class="inputs">
+          <input id="idInput" type="text" placeholder="아이디를 입력하세요">
+          <input id="pwInput" type="password" placeholder="비밀번호를 입력하세요">
+        </div>
+        <button class="loginBtn" type="submit">로그인</button>
+        <div class="msg" id="loginMsg"></div>
+      </form>
+    </div>
+  </div>
 </div>
+  
+<script src="./js/data.js"></script>
+<script src="./js/card-modal.js"></script>
+<script src="./js/main.js"></script>
+<script src="./js/upload.js"></script>
+<script src="./js/login.js"></script>
 </body>
 </html>

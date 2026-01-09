@@ -1,4 +1,6 @@
+/* 카드 css */
 .card{
+    position: relative;
     width: 250px;
     height: 320px;
     border: 1px solid grey;
@@ -29,5 +31,19 @@
 }
 
 .title{
-    margin-top: 5px;
+    margin-top: 20px;
+}
+
+.card-btn{
+    position: absolute;
+    border-radius: 16px;
+    width: 100%;
+    height: 100%;
+    padding: 1px;
+    border: none;
+    background-color: transparent;
+}
+
+.card-btn:hover{
+    opacity: 0.6;
 }

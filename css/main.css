@@ -4,12 +4,21 @@
   box-sizing: border-box; 
 }
 
+
+
+.main{
+  position: absolute;
+  height: 100%;
+}
+
 .logo{
-  margin-left: 10px;
+  margin-left: 5%;
   width: 60%;
 }
 
 .head {
+  position: relative;
+  width: auto;
   background-color: #0E4A84;
   display: flex;
   justify-content: space-between; 
@@ -23,9 +32,7 @@
   display: flex;
 }
 
-.nav-links li {
-  margin-left: 20px;
-}
+
 
 .nav-links a{
   color: white;
@@ -50,23 +57,31 @@
 }
 
 .search_wrapper {
+  
+  top: 0px;
+  left: 300px;
+  margin-top: 1%;
   position:absolute;
   z-index: 5;
   display: flex;         
   justify-content: center;  
   align-items: center;      
   height: 10vh;           
-  width: 100%;            
+  width: calc(100% - 300px);
+  margin-left: 15%;           
 }
 
 .input{
   display: flex;
   border: none;
+  width: 60%;
+  max-width: 800px;
 }
 
 #search{
+  flex: 1;
   width: 600px;
-  height: 40px;
+  height: 50%;
   border: none;
 }
 
@@ -78,7 +93,9 @@
   width: 20px;
   height: 20px;
 }
+
 .search_btn{
+  position: relative;
   width: 30px;
   height: 30px;
   border: none;
@@ -95,6 +112,7 @@
 }
 
 .category_btn{
+  position: relative;
   width: 30px;
   height: 30px;
   border: none;
@@ -106,13 +124,14 @@
 }
 
 .mid_wrapper{
+  margin-left: 40%;
   display: flex;
-  gap: 5px;
   flex-wrap: wrap;
 }
 
 hr {
-  width: 100%;
+  top: 10px;
+  width: 500%;
   border: none;
   height: 1px;
   background-color: black;
@@ -120,7 +139,7 @@ hr {
 
 .left{
   position: absolute;
-  z-index: 10;
+  z-index: 1000;
   display: table;
   table-layout: fixed;
   width: 300px;
@@ -178,47 +197,96 @@ hr {
 }
 
 #item-list {
-    justify-content: center;  
-    align-items: center;   
-    margin-left: 320px;
-    margin-top: 100px; 
-    display: flex;      
-    flex-wrap: wrap;    
-    gap: 20px;         
-    padding: 20px;
+    margin-left: 43%; 
+    margin-top: 12%; 
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; 
 }
 
-/* 카드 css */
-.card{
-    width: 250px;
-    height: 320px;
-    border: 1px solid grey;
-    border-radius: 16px;
-    overflow: hidden;
+
+
+/* 홍준기 코드 */
+/* 화면 전환용 */
+
+.hidden { display: none !important; }
+
+/* 등록 폼 전체 영역 (사이드바 오른쪽 배치) */
+.upload {
+  margin-top: 25px;
+  padding: 50px;
+  align-items: center;
+  border: 1px solid grey;
+  border-radius: 16px;
+  flex: 1;
+  margin-left: 600px; /* 왼쪽 사이드바 너비만큼 */
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  width:45%;
 }
 
-.card-image {
-    width: 230px;
-    height: 180px; 
-    padding: 10px;
+.upload-container {
+  width: 100%;
+  max-width: 650px;
 }
 
-.item-img{
-    width: 230px;
-    height: 180px;
-    object-fit: fill;
-    border-radius: 10;
+.upload-title { margin-bottom: 20px; font-size: 24px; }
+
+.upload-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 24px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-.card-content *{
-  margin: 0;
-  margin-left: 5px;
+/* 사진 미리보기 박스 */
+.preview-box {
+  width: 100%;
+  height: 220px;
+  border: 1px dashed #bbb;
+  border-radius: 12px;
+  background: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 12px;
 }
 
-.section{
-    margin-top: 15px;
+.preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #fff;
 }
 
-.title{
-    margin-top: 20px;
+.preview-hint { color: #666; font-size: 14px; }
+
+/* 입력창 스타일 */
+.form-label { display: block; font-weight: 700; margin: 12px 0 6px; }
+
+.input-photo, .input-title, .input-place, .input-date, .input-desc {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 14px;
 }
+
+.btn-row { display: flex; gap: 10px; margin-top: 20px; }
+
+.submit-btn, .cancel-btn {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  background: #fff;
+}
+
+.submit-btn { background: #0E4A84; color: white; border: none; }
+.req { color: #d00; font-weight: 700; }
