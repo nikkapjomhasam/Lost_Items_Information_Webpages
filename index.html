@@ -5,77 +5,105 @@
   <link rel="stylesheet" href="./css/main.css">
   <link rel="stylesheet" href="./css/card.css">
   <link rel="stylesheet" href="./css/login.css"> 
+  <link rel = "stylesheet" href="./css/filter.css">
+  <!-- <link rel="stylesheet" href="./css/lost_board_main.css"> -->
   <meta charset="UTF-8">
   <title>분실물 정보 웹</title>
 </head>
 <body>
-  <div class = "head">
+  <div class="head">
     <a href="index.html"><img src="./logo.jpg" class="logo"></a>
-      <nav>
-        <ul class="nav-links">
-          <li><button class="login" id="openLoginBtn">로그인</button></li>
-        </ul>
-    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><button class="login" id="openLoginBtn">로그인</button></li>
+      </ul>
+    </nav>
+  </div>
 
-  <nav class="left">
-    <div class="item">
+  <div class="main-wrapper">
+    <nav class="left">  
+      <div class="item">
         <button class="find_btn">
           <img src="./find.png" class="find_img">
           <span>분실물 찾기</span>
         </button>
-
         <button class="write_btn">
           <img src="./write.png" class="write_img">
           <span>분실품 작성하기</span>
         </button>
+        <button class="lost_btn">
+          <span>분실물 접수</span>
+        </button>
+      </div>
+    </nav>
+
+    <section class="content-section">
+      <div class="list-view">
+        <div class="search_wrapper">
+          <div class="mid_wrapper">
+            <input type="text" class="search">
+            <button class="search_btn"><img src="./search.png" class="search_img"></button>
+            <button class="category_btn"><img src="./filter.png" class="filter_img"></button>
+          </div>
+          <hr>
+        </div>
+
+      <div id="item-list"></div>
     </div>
-  </nav>
 
 
-<div class="main">
-    <div class="search_wrapper">
-      <div class="mid_wrapper">
-        <input type="text" id="search">
-        <button class="search_btn"><img src="./search.png" class="search_img"></button>
-        <button class="category_btn"><img src="./filter.png" class="filter_img"></button>
-        <hr>
+<div id="formView" class="upload hidden">
+    <div class="form-container">
+      <h1 class="form-title">분실품 등록</h1>
+      
+      <div class="card">
+        <form id="regForm">
+          <div class="previewBox">
+            <img id="previewImg" alt="미리보기" style="display:none; width:100%; height:220px; object-fit:contain;" />
+            <div id="previewHint" class="previewHint">사진을 선택하면 여기에 미리보기가 뜹니다.</div>
+          </div>
+
+          <label for="photo">사진 넣기 <span class="req">*</span></label>
+          <input id="photo" name="photo" type="file" accept="image/*" />
+
+          <label for="title">분실물 제목 <span class="req">*</span></label>
+          <input id="title" name="title" type="text" placeholder="예) 에어팟, 지갑" />
+
+          <label for="category">카테고리 <span class="req">*</span></label>
+          <select id="category" name="category" required>
+            <option value="" disabled selected>카테고리를 선택해주세요</option>
+            <option value="전자기기">전자기기</option>
+            <option value="지갑/카드">지갑/카드</option>
+            <option value="책/문구">책/문구</option>
+            <option value="의류/잡화">의류/잡화</option>
+            <option value="의류/잡화">기타</option>
+          </select>          
+
+          <label for="place">보관 위치 <span class="req">*</span></label>
+          <select id="place" name="place" required>
+            <option value="" disabled selected>위치를 선택해주세요</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+
+          <label for="date">작성일</label>
+          <input id="date" name="date" type="date" />
+
+          <label for="desc">설명</label>
+          <textarea id="desc" name="desc" rows="3" placeholder="특징/색상 등"></textarea>
+
+          <div class="btnRow">
+            <button class="btn submit-btn" type="submit">등록</button>
+            <button class="btn" type="button" id="cancelBtn">취소</button>
+          </div>
+        </form>
       </div>
     </div>
-    <div id="item-list"></div>
-  </div> 
-    <!-- 홍준기 분실물 등록 폼 -->
-    <div class="upload hidden">
-  <div class="form-container">
-    <h1 class="form-title">물품 등록</h1>
-    <form class="reg-form">
-      <div class="preview-box">
-        <img class="preview-img" src="" alt="미리보기" style="display: none;">
-        <div class="preview-hint">사진을 선택하면 여기에 미리보기가 뜹니다.</div>
-      </div>
-
-      <label>사진 넣기 <span class="req">*</span></label>
-      <input type="file" class="input-photo" accept="image/*">
-
-      <label>분실물 제목 <span class="req">*</span></label>
-      <input type="text" class="input-title" placeholder="예) 에어팟, 검은색 지갑">
-
-      <label>보관 위치 <span class="req">*</span></label>
-      <input type="text" class="input-place" placeholder="예) 학생회관 1층 안내데스크">
-
-      <label>작성일</label>
-      <input type="date" class="input-date">
-
-      <label>설명</label>
-      <input class="input-desc" rows="3" placeholder="특징/색상 등 상세 정보를 입력하세요."></input>
-
-      <div class="btn-row">
-        <button type="submit" class="submit-btn">등록하기</button>
-        <button type="button" class="cancel-btn">취소</button>
-      </div>
-    </form>
   </div>
-</div>
-    
+<!-- 보드 넣을 자리 -->  
+</section>
+
     <div id="modal-container">
     <div id="overlay"> 
       <div id="modal">
@@ -92,6 +120,7 @@
       </div>
     </div>
   </div>
+
 
 <!-- 정은혜 로그인 모달 -->
 <div class="overlay" id="loginOverlay">
@@ -121,11 +150,67 @@
     </div>
   </div>
 </div>
-  
+
+
+<!-- 홍준기:필터 -->
+<div id="filterOverlay" class="overlay hidden" aria-hidden="true">
+  <section id="filterModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="filterTitle" tabindex="-1">
+    <header class="modal-header">
+      <h2 id="filterTitle" class="modal-title">필터</h2>
+      <button id="closeFilter" class="icon-btn" type="button" aria-label="닫기">✕</button>
+    </header>
+
+    <div class="modal-body">
+      <div class="section">
+        <button class="section-head" type="button">
+          <span class="section-title">장소 선택</span>
+        </button>
+
+        <div class="section-content">
+          <label class="row">
+            <input class="chk" type="checkbox" name="location" value="1" />
+            <span class="label">1</span>
+          </label>
+          <label class="row">
+            <input class="chk" type="checkbox" name="location" value="2" />
+            <span class="label">2</span>
+          </label>
+          <label class="row">
+            <input class="chk" type="checkbox" name="location" value="3" />
+            <span class="label">3</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="section">
+        <button class="section-head" type="button">
+          <span class="section-title">물건 카테고리</span>
+        </button>
+        <div class="section-content">
+          <label class="row"><input class="chk" type="checkbox" name="category" value="전자기기" /><span class="label">전자기기</span></label>
+          <label class="row"><input class="chk" type="checkbox" name="category" value="지갑/카드" /><span class="label">지갑/카드</span></label>
+          <label class="row"><input class="chk" type="checkbox" name="category" value="책/문구" /><span class="label">책/문구</span></label>
+          <label class="row"><input class="chk" type="checkbox" name="category" value="의류/잡화" /><span class="label">의류/잡화</span></label>
+          <label class="row"><input class="chk" type="checkbox" name="category" value="기타" /><span class="label">기타</span></label>
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="modal-footer">
+      <button id="resetBtn" class="ghost-btn" type="button">초기화</button>
+      <button id="applyBtn" class="primary-btn" type="button">적용</button>
+    </footer>
+  </section>
+</div>
+
+
+<script src="./js/filter.js"></script>
 <script src="./js/data.js"></script>
 <script src="./js/card-modal.js"></script>
 <script src="./js/main.js"></script>
 <script src="./js/upload.js"></script>
 <script src="./js/login.js"></script>
+<!-- <script src="./js/lost_board_main.js"></script> -->
 </body>
 </html>

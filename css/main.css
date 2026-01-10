@@ -1,29 +1,32 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
-
+body{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
 
 .main{
-  position: absolute;
   height: 100%;
 }
 
 .logo{
-  margin-left: 5%;
+  margin-left: -15%;
   width: 60%;
 }
 
 .head {
-  position: relative;
-  width: auto;
+  height: 80px;
   background-color: #0E4A84;
   display: flex;
-  justify-content: space-between; 
-  align-items: center; 
-  top: 0;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  flex-shrink: 0;
 }
 
 .nav-links{
@@ -44,31 +47,45 @@
   color: #ff9900; 
 }
 
-.login{
+.login {
+  position: relative; 
   background-color: #0E4A84;
   border: none;
   color: white;
   font-weight: bold;
   font-size: 15px;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: color 0.3s;
+  overflow: hidden; 
 }
 
-.login:hover{
+.login::after {
+  content: "";
+  position: absolute;
+  left: 20%;       
+  width: 60%;    
+  bottom: 8px;     
+  height: 0.5px;   
+  background-color: #ff9900;
+  transform: scale(0); 
+  transition: transform 0.3s;
+}
+
+.login:hover {
   color: #ff9900;
 }
 
+.login:hover::after {
+  transform: scale(1);
+}
+
 .search_wrapper {
-  
-  top: 0px;
-  left: 300px;
-  margin-top: 1%;
-  position:absolute;
-  z-index: 5;
-  display: flex;         
-  justify-content: center;  
-  align-items: center;      
-  height: 10vh;           
-  width: calc(100% - 300px);
-  margin-left: 15%;           
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;    
 }
 
 .input{
@@ -124,35 +141,39 @@
 }
 
 .mid_wrapper{
-  margin-left: 40%;
+  justify-items: center;
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
 }
 
 hr {
   top: 10px;
-  width: 500%;
   border: none;
   height: 1px;
   background-color: black;
 }
 
 .left{
-  position: absolute;
-  z-index: 1000;
-  display: table;
-  table-layout: fixed;
   width: 300px;
-  height: 100vh;
+  background-color: #fff;
   border-right: 1px solid #ddd;
+  flex-shrink: 0;
+  padding: 20px;
+}
+
+.main-wrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
 }
 
 .item{
   margin-top: 80px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 10%;
+  gap: 20px;
+  padding: 5px;
 }
 
 .find_btn{
@@ -176,6 +197,7 @@ hr {
   height: 50px;
 }
 
+
 .write_btn{
   font-size: 25px;
   display: flex;
@@ -196,97 +218,173 @@ hr {
   height: 50px;
 }
 
+.lost_btn{
+  font-size: 25px;
+  display: flex;
+  align-items: left;     
+  justify-content: left; 
+  gap: 5px;
+  border: none;
+  background: transparent;
+  font-weight: bold;
+}
+
+.lost_btn:hover{
+  opacity: 0.6;
+}
+
+.content-section {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #item-list {
-    margin-left: 43%; 
-    margin-top: 12%; 
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 20px; 
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
 }
 
 
 
-/* 홍준기 코드 */
-/* 화면 전환용 */
+/* --- 홍준기 코드 및 등록 폼 스타일 보완 --- */
 
 .hidden { display: none !important; }
 
-/* 등록 폼 전체 영역 (사이드바 오른쪽 배치) */
+/* 등록 폼 전체 영역 (중앙 정렬 보완) */
 .upload {
-  margin-top: 25px;
-  padding: 50px;
-  align-items: center;
-  border: 1px solid grey;
-  border-radius: 16px;
-  flex: 1;
-  margin-left: 600px; /* 왼쪽 사이드바 너비만큼 */
-  padding: 40px;
+  width: 100%;             /* 가로 꽉 채우기 */
   display: flex;
-  justify-content: center;
-  width:45%;
-}
-
-.upload-container {
-  width: 100%;
-  max-width: 650px;
-}
-
-.upload-title { margin-bottom: 20px; font-size: 24px; }
-
-.upload-card {
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 24px;
+  flex-direction: column;
+  align-items: center;     /* 내부 폼을 중앙으로 */
+  padding: 20px;
   background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  box-sizing: border-box;
 }
 
-/* 사진 미리보기 박스 */
-.preview-box {
+.upload .card {
+  width: 70%;
+  height: 100%;
+  max-width: none; 
+  border: none;          
+  padding: 0;
+}
+
+
+
+.form-container {
+  justify-items: center;
+  align-items: center;
   width: 100%;
-  height: 220px;
-  border: 1px dashed #bbb;
+  max-width: 1000px;      
+}
+
+.form-title { 
+  margin-bottom: 25px; 
+  font-size: 28px; 
+  font-weight: bold;
+  color: #0E4A84; /* 메인 테마색 적용 */
+  text-align: center;
+}
+
+/* 사진 미리보기 박스 (데모 코드 스타일 이식) */
+.previewBox {
+  width: 100%;
+  height: 250px; /* 크기 살짝 키움 */
+  border: 2px dashed #bbb;
   border-radius: 12px;
-  background: #f6f6f6;
+  background: #f9f9f9;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
+  position: relative;
 }
 
-.preview-img {
+#previewImg {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: contain; /* 이미지 비율 유지 */
   background: #fff;
 }
 
-.preview-hint { color: #666; font-size: 14px; }
+.previewHint { 
+  color: #888; 
+  font-size: 14px; 
+  text-align: center;
+}
 
-/* 입력창 스타일 */
-.form-label { display: block; font-weight: 700; margin: 12px 0 6px; }
+/* 입력창 레이블 및 필드 스타일 */
+label { 
+  display: block; 
+  font-weight: bold; 
+  margin: 15px 0 8px; 
+  color: #333;
+}
 
-.input-photo, .input-title, .input-place, .input-date, .input-desc {
+input[type="text"],
+input[type="date"],
+input[type="file"],
+textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  box-sizing: border-box;
   font-size: 14px;
+  margin-bottom: 10px;
 }
 
-.btn-row { display: flex; gap: 10px; margin-top: 20px; }
+textarea { resize: vertical; }
 
-.submit-btn, .cancel-btn {
+/* 버튼 디자인 (한양대 블루 테마) */
+.btnRow { 
+  display: flex; 
+  gap: 15px; 
+  margin-top: 25px; 
+}
+
+.btn {
   flex: 1;
-  padding: 12px;
-  border: 1px solid #ccc;
+  padding: 14px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 15px;
-  background: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  transition: 0.2s;
 }
 
-.submit-btn { background: #0E4A84; color: white; border: none; }
-.req { color: #d00; font-weight: 700; }
+.submit-btn { 
+  background: #0E4A84; 
+  color: white; 
+  border: none; 
+}
+
+.submit-btn:hover {
+  background: #0a3661;
+}
+
+#cancelBtn { 
+  background: #eee; 
+  color: #333; 
+  border: 1px solid #ccc; 
+}
+
+#cancelBtn:hover {
+  background: #ddd;
+}
+
+.req { color: #d00; font-weight: bold; } /* 필수 표시 */
+
+
+
+
+
+
+/*보더 css*/

@@ -8,6 +8,10 @@
     overflow: hidden;
 }
 
+#info{
+    gap: 20px;
+}
+
 .card-image {
     width: 230px;
     height: 180px; 

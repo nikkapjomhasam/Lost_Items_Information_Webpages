@@ -1,4 +1,16 @@
+let currentItems = [];
+
 document.addEventListener("DOMContentLoaded", ()=> {
+
+    const storedData = JSON.parse(localStorage.getItem("lostItems") || "[]");
+
+    window.lostItems = [...storedData, ...lostItems];
+    window.lostItems.sort((a,b) => {
+        return new Date(b.date) - new Date(a.date);
+    });
+
+    currentItems = [...window.lostItems];
+
     //search_wrapper 밑에 카드 생성
     const searchWrapper = document.querySelector(".search_wrapper");
     const itemList = document.createElement("div");
@@ -8,30 +20,47 @@ document.addEventListener("DOMContentLoaded", ()=> {
     let currentPage = 1;
     const itemsPerPage = 8;
 
+    window.applyFilters = function(selectedLocations, selectedCategories) {
+        // 원본(window.lostItems)에서 필터링해서 currentItems에 다시 저장
+        currentItems = window.lostItems.filter(item => {
+            const locMatch = selectedLocations.length === 0 || 
+                             selectedLocations.includes(String(item.place || item.location));
+            const catMatch = selectedCategories.length === 0 || 
+                             selectedCategories.includes(item.category);
+            return locMatch && catMatch;
+        });
+        currentPage = 1; 
+        renderPage(currentPage);
+    };
     
-function renderPage(page) {
+    function renderPage(page) {
         itemList.innerHTML = ""; // 기존 목록 비우기
         
         // 데이터에서 출력할 구간 계산 (예: 1페이지면 0~5번 인덱스)
         const start = (page - 1) * itemsPerPage;
         const end = start + itemsPerPage;
-        const targetItems = lostItems.slice(start, end);
+        const targetItems = currentItems.slice(start, end);
 
         targetItems.forEach((item) => {
             const card = document.createElement("div");
             card.className = "card";
+            card.setAttribute("data-id", item.id);
+
+            
             card.innerHTML = `
                 <button class="card-btn"></button>
                 <div class="card-image">
-                    <img src="${item.image}" alt="${item.title}" class="item-img">
+                    <img src="${item.img || item.image}" alt="${item.title}" class="item-img">
                 </div>
                 <div class="card-content">
                     <div class="title">
                         <h3 class="item-title">${item.title}</h3>
                     </div>
                     <div class="section">
-                        <p class="item-location"><span>장소:</span> ${item.location}</p>
+                        <p class="item-location"><span>장소:</span> ${item.place || item.location}</p>
                         <p class="item-date"><span>일자:</span> ${item.date}</p>
+                        <p class="item-desc" style="display:none;">${item.description || item.desc || "상세 설명이 없습니다."}</p>
+                        <p class="item-location">${item.category}</p>
                     </div>
                 </div>
             `;
@@ -44,7 +73,7 @@ function renderPage(page) {
 
     // [3] 페이지 버튼 생성 함수
     function renderPaginationButtons() {
-        const totalPages = Math.ceil(lostItems.length / itemsPerPage);
+        const totalPages = Math.ceil(currentItems.length / itemsPerPage);
         
         // 기존 버튼 영역 삭제 후 다시 생성
         let paginationContainer = document.querySelector(".pagination-container");

@@ -1,0 +1,162 @@
+
+.lb-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: none; /* 기본 숨김 */
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000; /* 로그인 모달보다 높게 설정 가능 */
+}
+
+/* lb-open 클래스가 붙으면 보임 */
+.lb-overlay.lb-open {
+  display: flex;
+}
+
+/* 게시판 모달 창 */
+.lb-modal {
+  position: relative;
+  width: min(760px, 96vw);
+  background: #fff;
+  border-radius: 18px;
+  padding: 22px 22px 18px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #111;
+}
+
+/* 닫기 버튼 */
+.lb-xBtn {
+  position: absolute;
+  right: 14px;
+  top: 10px;
+  border: 0;
+  background: transparent;
+  font-size: 28px;
+  cursor: pointer;
+  color: #777;
+}
+
+.lb-title {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.lb-sub {
+  margin: 0 0 14px;
+  color: #7b8794;
+  font-size: 14px;
+}
+
+/* ===== 글쓰기 폼 레이아웃 ===== */
+.lb-form {
+  display: grid;
+  gap: 12px;
+}
+
+.lb-row label {
+  display: block;
+  font-size: 13px;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.lb-row input, .lb-row select, .lb-row textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  outline: none;
+  font-size: 14px;
+}
+
+.lb-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* 하단 버튼 영역 */
+.lb-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.lb-btn-submit {
+  height: 48px;
+  padding: 0 20px;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.lb-btn-cancel, .lb-btn-close {
+  height: 48px;
+  padding: 0 20px;
+  background: #fff;
+  color: #111;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ===== 상세보기 전용 스타일 ===== */
+.lb-detailGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.lb-detailItem {
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.lb-detailItem .lb-k {
+  color: #7b8794;
+  font-weight: 900;
+  font-size: 13px;
+}
+
+.lb-detailItem .lb-v {
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.lb-descBox {
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 10px;
+}
+
+.lb-detailDesc {
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.lb-msg {
+  font-size: 13px;
+  min-height: 18px;
+}
+
+/* 모바일 대응 */
+@media (max-width: 620px) {
+  .lb-grid2, .lb-detailGrid {
+    grid-template-columns: 1fr;
+  }
+}
