@@ -1,0 +1,169 @@
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --blue: #2563eb;
+  --overlay-bg: rgba(17, 24, 39, 0.45); /* 배경을 조금 더 어둡게 */
+}
+
+/* 필터 전용 오버레이 - 기존 로그인/카드 모달과 겹치지 않게 처리 */
+#filterOverlay {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-bg);
+  display: flex; /* 기본을 flex로 두고 hidden으로 제어 */
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 2000; /* 다른 요소보다 위에 오도록 설정 */
+  transition: opacity 0.25s ease;
+}
+
+#filterOverlay.hidden {
+  display: none;
+}
+
+/* 필터 모달 본체 */
+#filterModal {
+  width: 420px;
+  max-width: 100%;
+  background: var(--card);
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  animation: modalSlideUp 0.3s ease-out;
+}
+
+@keyframes modalSlideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* 헤더/푸터 공통 */
+.modal-header, .modal-footer {
+  padding: 16px 20px;
+  background: #fff;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+
+.modal-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+}
+
+/* 바디 영역 */
+.modal-body {
+  padding: 8px 12px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* 아코디언 섹션 */
+.section {
+  border-bottom: 1px solid var(--line);
+}
+.section:last-child {
+  border-bottom: none;
+}
+
+.section-head {
+  width: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 8px;
+  transition: background 0.2s;
+}
+
+.section-head:hover {
+  background: #f9fafb;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* 꺽쇠(Chevron) 애니메이션 */
+.chevron {
+  font-size: 14px;
+  color: var(--muted);
+  transition: transform 0.3s ease;
+}
+
+.section-head[aria-expanded="false"] .chevron {
+  transform: rotate(180deg);
+}
+
+/* 체크박스 행(Row) */
+label.row {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.row:hover {
+  background: rgba(37, 99, 235, 0.05);
+}
+
+.chk {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--blue);
+  cursor: pointer;
+}
+
+.label {
+  font-size: 15px;
+  color: var(--text);
+  user-select: none;
+}
+
+/* 버튼 스타일 정의 */
+.primary-btn {
+  background: var(--blue);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1; /* 푸터에서 버튼을 꽉 채우게 */
+}
+
+.ghost-btn {
+  background: white;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.icon-btn {
+  border: none;
+  background: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--muted);
+}

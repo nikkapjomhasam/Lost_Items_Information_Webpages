@@ -12,7 +12,7 @@
 </head>
 <body>
   <div class="head">
-    <a href="index.html"><img src="./logo.jpg" class="logo"></a>
+    <a href="index.html"><img src="./img/logo.jpg" class="logo"></a>
     <nav>
       <ul class="nav-links">
         <li><button class="login" id="openLoginBtn">로그인</button></li>
@@ -40,8 +40,8 @@
         <div class="search_wrapper">
           <div class="mid_wrapper">
             <input type="text" class="search">
-            <button class="search_btn"><img src="./search.png" class="search_img"></button>
-            <button class="category_btn"><img src="./filter.png" class="filter_img"></button>
+            <button class="search_btn"><img src="./img/search.png" class="search_img"></button>
+            <button class="category_btn"><img src="./img/filter.png" class="filter_img"></button>
           </div>
           <hr>
         </div>
@@ -54,7 +54,7 @@
     <div class="form-container">
       <h1 class="form-title">분실품 등록</h1>
       
-      <div class="card">
+      <div class="card-upload">
         <form id="regForm">
           <div class="previewBox">
             <img id="previewImg" alt="미리보기" style="display:none; width:100%; height:220px; object-fit:contain;" />
@@ -124,7 +124,7 @@
 
     <!-- 테이블 -->
     <section class="board" aria-label="분실물 목록">
-      <div class="row head" role="row">
+      <div class="hd" role="row">
         <div class="cell no" role="columnheader">No</div>
         <div class="cell title" role="columnheader">제목</div>
         <div class="cell author" role="columnheader">작성자</div>
@@ -155,7 +155,6 @@
             <select id="pStatus" required>
               <option value="분실">분실</option>
               <option value="보관중">보관중</option>
-              <option value="해결">해결</option>
             </select>
           </div>
           <div>
