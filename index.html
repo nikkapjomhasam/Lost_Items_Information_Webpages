@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="./css/card.css">
   <link rel="stylesheet" href="./css/login.css"> 
   <link rel = "stylesheet" href="./css/filter.css">
-  <!-- <link rel="stylesheet" href="./css/lost_board_main.css"> -->
+  <link rel="stylesheet" href="./css/lost_board_main.css">
   <meta charset="UTF-8">
   <title>분실물 정보 웹</title>
 </head>
@@ -24,11 +24,9 @@
     <nav class="left">  
       <div class="item">
         <button class="find_btn">
-          <img src="./find.png" class="find_img">
           <span>분실물 찾기</span>
         </button>
-        <button class="write_btn">
-          <img src="./write.png" class="write_img">
+        <button id = "write_btn" class="write_btn" style="display: none;">
           <span>분실품 작성하기</span>
         </button>
         <button class="lost_btn">
@@ -102,6 +100,143 @@
     </div>
   </div>
 <!-- 보드 넣을 자리 -->  
+
+
+<div id="receipt-view" class="receipt-hidden">
+    <div class="wrap">
+    <!-- 상단 -->
+    <div class="hd">
+      <div class="header-left">
+        <h1 class="page-title">분실물 게시판</h1>
+        <p class="page-sub">분실/보관 정보를 확인하고 글을 올릴 수 있어요.</p>
+      </div>
+
+      <div class="header-right">
+        <form id="searchForm" class="search" autocomplete="off">
+          <input id="searchInput" type="text" placeholder="제목/장소/키워드 검색" />
+          <button id="searchBtn" type="submit" class="btn">검색</button>
+        </form>
+        <button id="newPostBtn" type="button" class="btn btn-primary">글 올리기</button>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- 테이블 -->
+    <section class="board" aria-label="분실물 목록">
+      <div class="row head" role="row">
+        <div class="cell no" role="columnheader">No</div>
+        <div class="cell title" role="columnheader">제목</div>
+        <div class="cell author" role="columnheader">작성자</div>
+        <div class="cell date" role="columnheader">작성시간</div>
+      </div>
+
+      <div id="boardBody" class="body" role="rowgroup"></div>
+    </section>
+  </div>
+
+  <!-- 글쓰기 모달 -->
+  <div class="overlay" id="postOverlay" aria-hidden="true">
+    <div class="modal-board" role="dialog" aria-modal="true" aria-labelledby="postTitle">
+      <button class="xBtn" id="closePost" aria-label="닫기">×</button>
+
+      <h2 id="postTitle">분실물 글 올리기</h2>
+      <p class="modalSub">분실/보관 정보를 입력하면 게시판에 등록됩니다.</p>
+
+      <form id="postForm" class="form">
+        <div class="rowForm">
+          <label>제목</label>
+          <input id="pTitle" type="text" placeholder="예: 에어팟(화이트) 케이스 분실 / 본관 1층" required />
+        </div>
+
+        <div class="rowForm grid2">
+          <div>
+            <label>상태</label>
+            <select id="pStatus" required>
+              <option value="분실">분실</option>
+              <option value="보관중">보관중</option>
+              <option value="해결">해결</option>
+            </select>
+          </div>
+          <div>
+            <label>카테고리</label>
+            <select id="pCategory" required>
+              <option value="전자기기">전자기기</option>
+              <option value="지갑/카드">지갑/카드</option>
+              <option value="가방/파우치">가방/파우치</option>
+              <option value="의류/잡화">의류/잡화</option>
+              <option value="기타">기타</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="rowForm grid2">
+          <div>
+            <label>날짜</label>
+            <input id="pDate" type="date" required />
+          </div>
+          <div>
+            <label>장소</label>
+            <input id="pPlace" type="text" placeholder="예: 본관 / 학생회관 / 셔틀버스" required />
+          </div>
+        </div>
+
+        <div class="rowForm grid2">
+          <div>
+            <label>작성자</label>
+            <input id="pWriter" type="text" placeholder="예: 익명" />
+          </div>
+          <div>
+            <label>연락 방식</label>
+            <input id="pContact" type="text" placeholder="예: 댓글 부탁 / 오픈채팅 등" required />
+          </div>
+        </div>
+
+        <div class="rowForm">
+          <label>상세 내용</label>
+          <textarea id="pDesc" rows="4" placeholder="특징/색상/각인/보관 위치 등을 적어주세요." required></textarea>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn" id="cancelPost">취소</button>
+          <button type="submit" class="btn btn-primary">등록</button>
+        </div>
+
+        <div class="formMsg" id="postMsg" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 상세보기 모달 (제목 클릭 시 뜸) -->
+  <div class="overlay" id="detailOverlay" aria-hidden="true">
+    <div class="modal-board" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+      <button class="xBtn" id="closeDetail" aria-label="닫기">×</button>
+
+      <h2 id="detailTitle">게시글 상세</h2>
+      <p class="modalSub" id="detailSub">내용을 확인하세요.</p>
+
+      <div class="detailGrid">
+        <div class="detailItem"><span class="k">상태</span><span class="v" id="dStatus"></span></div>
+        <div class="detailItem"><span class="k">카테고리</span><span class="v" id="dCategory"></span></div>
+        <div class="detailItem"><span class="k">날짜</span><span class="v" id="dDateLost"></span></div>
+        <div class="detailItem"><span class="k">장소</span><span class="v" id="dPlace"></span></div>
+        <div class="detailItem"><span class="k">작성자</span><span class="v" id="dWriter"></span></div>
+        <div class="detailItem"><span class="k">연락</span><span class="v" id="dContact"></span></div>
+        <div class="detailItem"><span class="k">조회수</span><span class="v" id="dViews"></span></div>
+        <div class="detailItem"><span class="k">작성일</span><span class="v" id="dCreatedAt"></span></div>
+      </div>
+
+      <div class="detailDescBox">
+        <div class="k">상세 내용</div>
+        <div class="detailDesc" id="dDesc"></div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn" id="closeDetail2">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
 </section>
 
     <div id="modal-container">
@@ -116,6 +251,7 @@
           <p id="placeText"></p>
           <p id="dateText"></p>
           <p id="descText"></p>
+          <p id="categoryText"></p>
         </div>
       </div>
     </div>
@@ -211,6 +347,6 @@
 <script src="./js/main.js"></script>
 <script src="./js/upload.js"></script>
 <script src="./js/login.js"></script>
-<!-- <script src="./js/lost_board_main.js"></script> -->
+<script src="./js/lost_board_main.js"></script>
 </body>
 </html>

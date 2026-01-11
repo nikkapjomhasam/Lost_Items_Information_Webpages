@@ -3,7 +3,6 @@ let currentItems = [];
 document.addEventListener("DOMContentLoaded", ()=> {
 
     const storedData = JSON.parse(localStorage.getItem("lostItems") || "[]");
-
     window.lostItems = [...storedData, ...lostItems];
     window.lostItems.sort((a,b) => {
         return new Date(b.date) - new Date(a.date);
@@ -20,18 +19,32 @@ document.addEventListener("DOMContentLoaded", ()=> {
     let currentPage = 1;
     const itemsPerPage = 8;
 
-    window.applyFilters = function(selectedLocations, selectedCategories) {
+    window.applyFilters = function(selectedLocations = [], selectedCategories = [], searchTerm = "") {
         // 원본(window.lostItems)에서 필터링해서 currentItems에 다시 저장
+        const query = searchTerm.toLowerCase().trim();
         currentItems = window.lostItems.filter(item => {
             const locMatch = selectedLocations.length === 0 || 
                              selectedLocations.includes(String(item.place || item.location));
             const catMatch = selectedCategories.length === 0 || 
                              selectedCategories.includes(item.category);
-            return locMatch && catMatch;
+            const searchMatch = query === "" || 
+                            item.title.toLowerCase().includes(query);
+            return locMatch && catMatch && searchMatch;
         });
         currentPage = 1; 
         renderPage(currentPage);
     };
+
+    const searchInput = document.querySelector(".search");
+    const searchBtn = document.querySelector(".search_btn");
+
+    searchBtn.addEventListener("click", () => {
+        window.applyFilters([], [], searchInput.value);
+    });
+
+    searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") searchBtn.click();
+    });
     
     function renderPage(page) {
         itemList.innerHTML = ""; // 기존 목록 비우기
@@ -60,7 +73,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
                         <p class="item-location"><span>장소:</span> ${item.place || item.location}</p>
                         <p class="item-date"><span>일자:</span> ${item.date}</p>
                         <p class="item-desc" style="display:none;">${item.description || item.desc || "상세 설명이 없습니다."}</p>
-                        <p class="item-location">${item.category}</p>
+                        <p class="item-location"><span>카테고리:</span> ${item.category}</p>
                     </div>
                 </div>
             `;

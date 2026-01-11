@@ -5,6 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const openLoginBtn = document.getElementById("openLoginBtn");
     const closeLoginX = document.getElementById("closeLoginX");
     const loginForm = document.getElementById("loginForm");
+    const adminWriteBtn = document.getElementById("write_btn");
+    const savedUser = localStorage.getItem("loggedInId");
+    if (savedUser) {
+        setLoginState(true, savedUser);
+    }
+
 
     // 버튼 클릭 이벤트 (로그인/로그아웃 제어)
     openLoginBtn?.addEventListener("click", (e) => {
@@ -25,9 +31,26 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("pwInput").value = "";
     }
 
+    function setLoginState(loggedInId, userId="") {
+        if (loggedInId) {
+            openLoginBtn.textContent = "로그아웃";
+            openLoginBtn.classList.add("logged-in");
+
+            if (userId === "admin" && adminWriteBtn) {
+                adminWriteBtn.style.display = "block";
+            }
+
+        } else {
+            openLoginBtn.textContent = "로그인";
+            openLoginBtn.classList.remove("logged-in");
+
+            if (adminWriteBtn) adminWriteBtn.style.display = "none";
+        }
+    }
+
     function logout() {
-        openLoginBtn.textContent = "로그인";
-        openLoginBtn.classList.remove("logged-in");
+        localStorage.removeItem("loggedInId");
+        setLoginState(false);
         alert("로그아웃 되었습니다.");
     }
 
@@ -45,9 +68,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const msg = document.getElementById("loginMsg");
 
         if (ACCOUNTS[id] === pw) {
-            // [수정] 아래 메시지 출력 대신 alert을 사용합니다.
+            localStorage.setItem("loggedInId", id);
             alert("로그인 성공!"); 
             
+            setLoginState(true, id);
             openLoginBtn.textContent = "로그아웃";
             openLoginBtn.classList.add("logged-in");
             

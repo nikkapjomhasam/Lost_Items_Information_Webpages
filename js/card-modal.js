@@ -5,6 +5,7 @@ document.addEventListener("click", function (e) {
   
   if (card) {
     const itemId = parseInt(card.getAttribute("data-id"));
+
     const itemData = window.lostItems.find(item => item.id === itemId);
 
     if (itemData) {
@@ -20,8 +21,8 @@ document.addEventListener("click", function (e) {
     document.getElementById("titleText").innerText = title;
     document.getElementById("placeText").innerText = location; 
     document.getElementById("dateText").innerText = date;
-    document.getElementById("descText").innerText = itemData.description;
-    document.getElementById("descText").innerText = itemData.category;
+    document.getElementById("descText").innerText = "정보: "+ itemData.description;
+    document.getElementById("categoryText").innerText = "카테고리: " + itemData.category;
 
     // 4. 모달 표시
     overlay.style.display = "flex";
