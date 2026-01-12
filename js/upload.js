@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showHome();
   });
 
-  // 여기가 에러 지점이었습니다. 중괄호 위치 확인!
+
   regForm?.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -104,4 +104,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     reader.readAsDataURL(file);
   });
+
 });
