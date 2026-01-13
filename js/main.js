@@ -4,13 +4,13 @@ document.addEventListener("DOMContentLoaded", ()=> {
 
     const storedData = JSON.parse(localStorage.getItem("lostItems") || "[]");
     window.lostItems = [...storedData, ...lostItems];
+    
     window.lostItems.sort((a,b) => {
         return new Date(b.date) - new Date(a.date);
     });
 
     currentItems = [...window.lostItems];
 
-    //search_wrapper 밑에 카드 생성
     const searchWrapper = document.querySelector(".search_wrapper");
     const itemList = document.createElement("div");
     itemList.id = "item-list";
@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", ()=> {
     const itemsPerPage = 8;
 
     window.applyFilters = function(selectedLocations = [], selectedCategories = [], searchTerm = "") {
-        // 원본(window.lostItems)에서 필터링해서 currentItems에 다시 저장
         const query = searchTerm.toLowerCase().trim();
         currentItems = window.lostItems.filter(item => {
             const locMatch = selectedLocations.length === 0 || 
@@ -47,9 +46,8 @@ document.addEventListener("DOMContentLoaded", ()=> {
     });
     
     function renderPage(page) {
-        itemList.innerHTML = ""; // 기존 목록 비우기
+        itemList.innerHTML = ""; 
         
-        // 데이터에서 출력할 구간 계산 (예: 1페이지면 0~5번 인덱스)
         const start = (page - 1) * itemsPerPage;
         const end = start + itemsPerPage;
         const targetItems = currentItems.slice(start, end);
@@ -83,15 +81,15 @@ document.addEventListener("DOMContentLoaded", ()=> {
             itemList.appendChild(card);
         });
         
-        // 페이지 버튼도 매번 다시 생성
+
         renderPaginationButtons();
     }
 
-    // [3] 페이지 버튼 생성 함수
+
     function renderPaginationButtons() {
         const totalPages = Math.ceil(currentItems.length / itemsPerPage);
         
-        // 기존 버튼 영역 삭제 후 다시 생성
+
         let paginationContainer = document.querySelector(".pagination-container");
         if (paginationContainer) paginationContainer.remove();
 
@@ -106,7 +104,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
             btn.onclick = () => {
                 currentPage = i;
                 renderPage(currentPage);
-                window.scrollTo(0, 0); // 클릭 시 화면 상단으로 이동
+                window.scrollTo(0, 0); 
             };
             paginationContainer.appendChild(btn);
         }
@@ -116,19 +114,15 @@ document.addEventListener("DOMContentLoaded", ()=> {
     window.deleteItem = function(id) {
     if (!confirm("이 게시글을 삭제하시겠습니까?")) return;
 
-    // 1. 화면에서 보이지 않도록 window.lostItems에서 제거 (data.js 데이터 포함)
     window.lostItems = window.lostItems.filter(item => String(item.id) !== String(id));
     
-    // 2. 만약 로컬스토리지에 저장된 데이터라면 거기서도 제거
     const stored = JSON.parse(localStorage.getItem("lostItems") || "[]");
     const updatedStored = stored.filter(item => String(item.id) !== String(id));
     localStorage.setItem("lostItems", JSON.stringify(updatedStored));
 
-    // 3. 필터 다시 적용해서 화면 갱신 (currentItems 업데이트 및 리렌더링)
     window.applyFilters(); 
     alert("삭제되었습니다.");
 };
 
-    // 초기 실행
     renderPage(currentPage);
 });

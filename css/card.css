@@ -11,9 +11,7 @@
 }
 
 .card:hover {
-    /* 위로 10px 이동 */
     transform: translateY(-10px); 
-    /* 떠오르는 느낌을 주기 위해 그림자 강화 */
     box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
     border-color: #ccc; /* 테두리 살짝 연하게 */
 }
